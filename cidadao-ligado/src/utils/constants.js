@@ -1,0 +1,1 @@
+export const MENSAGEM_SERVIDOR_INDISPONIVEL = "O Servidor do governo está fora do ar. Retorne sua pesquisa em alguns minutos!";
