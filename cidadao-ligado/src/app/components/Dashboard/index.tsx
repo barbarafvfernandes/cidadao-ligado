@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Recurso } from "@/types/types";
 import PieChart from "../PieChart";
 import styles from './Dashboard.module.css';
-import {MENSAGEM_SERVIDOR_INDISPONIVEL} from "@/utils/constants";
+import { MENSAGEM_SERVIDOR_INDISPONIVEL } from "@/utils/constants";
 
 async function fetchRecursos(params: {
   mesAnoInicio: string;
@@ -89,6 +89,13 @@ export default function MainContent({ data }: MainContentProps) {
     arr.sort((a, b) => b.total - a.total);
     return arr.slice(0, 4);
   }, [dados]);
+
+  const limparResultados = ()=>{
+    setDados([]);
+    setInicio('');
+    setFim('');
+    setPagina(1);
+  }
 
   return (
     <main className={styles.main}>
@@ -175,8 +182,8 @@ export default function MainContent({ data }: MainContentProps) {
                   <h3>Despesas encontradas:</h3>
                   <div className={styles.countBadge}>{dados.length} registros</div>
                 </div>
-
-                {dados.length > 0 ? (
+                <div className={styles.resultsList}>
+                  {dados.length > 0 ? (
                   <ul className={styles.list}>
                     {dados.map((recurso, index) => (
                       <li key={`${recurso.codigoPessoa}-${recurso.anoMes}-${index}`} className={styles.listItem}>
@@ -192,12 +199,22 @@ export default function MainContent({ data }: MainContentProps) {
                 ) : (
                   !carregando && !erroMensagem && <p className={styles.emptyText}>Nenhum dado consultado ainda.</p>
                 )}
+                </div>
+
+                <div>
+                  {dados.length > 0 && (
+                    <button type="button" className={styles.button} onClick={limparResultados}>
+                      Limpar Busca
+                    </button>
+                  )}
+                </div>
+
               </div>
 
               <aside className={styles.rightPanel}>
                 <div className={styles.sideBox}>
-                  <h3>Despesas por tipo de beneficiário:</h3> 
-                  <div className={styles.statsList}> 
+                  <h3>Despesas por tipo de beneficiário:</h3>
+                  <div className={styles.statsList}>
                     {topTipoPessoa.length === 0 ? (
                       <p className={styles.emptyText}>Sem dados para mostrar.</p>
                     ) : (

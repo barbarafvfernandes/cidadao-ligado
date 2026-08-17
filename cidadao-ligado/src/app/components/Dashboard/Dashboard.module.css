@@ -253,6 +253,10 @@
   font-weight: 600;
 }
 
+.resultsList {
+  margin-bottom: 1rem;
+}
+
 .list {
   width: 100%;
   max-width: 100%;
