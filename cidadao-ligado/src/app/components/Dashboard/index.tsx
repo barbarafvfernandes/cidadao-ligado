@@ -140,6 +140,7 @@ export default function MainContent({ data }: MainContentProps) {
                 value={inicio}
                 onChange={(e) => setInicio(e.target.value)}
                 className={styles.input}
+                required
               />
             </label>
 
@@ -151,6 +152,7 @@ export default function MainContent({ data }: MainContentProps) {
                 value={fim}
                 onChange={(e) => setFim(e.target.value)}
                 className={styles.input}
+                required
               />
             </label>
 
@@ -161,6 +163,7 @@ export default function MainContent({ data }: MainContentProps) {
                 value={pagina}
                 onChange={(e) => setPagina(Number(e.target.value))}
                 className={`${styles.input} ${styles.inputPage}`}
+                required
               />
             </label>
 
