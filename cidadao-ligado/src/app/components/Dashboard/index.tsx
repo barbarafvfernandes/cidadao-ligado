@@ -98,15 +98,15 @@ export default function MainContent({ data }: MainContentProps) {
   }
 
   return (
-    <main className={styles.main}>
+    <div className={styles.main}>
       <div className={styles.container}>
-        <section className={styles.section}>
+        <section className={styles.section} aria-labelledby="titulo-principal">
           <div className={styles.contentWrapper}>
             <div className={styles.textArea}>
               <span className={styles.topText}>
                 Transparência pública em linguagem simples
               </span>
-              <h1 className={styles.title}>
+              <h1 id="titulo-principal" className={styles.title}>
                 Acompanhe despesas públicas e transferências com clareza.
               </h1>
               <p className={styles.description}>
@@ -123,85 +123,100 @@ export default function MainContent({ data }: MainContentProps) {
           </div>
         </section>
 
-        <section className={styles.section}>
+        <section className={styles.section} aria-labelledby="titulo-formulario">
           <div className={styles.formHeader}>
-            <h2 className={styles.sectionTitle}>Buscar e filtrar</h2>
+            <h2 id="titulo-formulario" className={styles.sectionTitle}>Buscar e filtrar</h2>
             <p className={styles.sectionDescription}>
               Localize órgãos, favorecidos ou municípios em poucos segundos.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.formGrid}>
-            <label className={styles.labelGroup}>
+          <form
+            onSubmit={handleSubmit}
+            className={styles.formGrid}
+            aria-busy={carregando}
+            aria-live="polite"
+          >
+            <label className={styles.labelGroup} htmlFor="mes-ano-inicio">
               <span className={styles.labelText}>Início (MM/AAAA)</span>
               <input
+                id="mes-ano-inicio"
+                name="mesAnoInicio"
                 type="text"
                 placeholder="MM/AAAA"
                 value={inicio}
                 onChange={(e) => setInicio(e.target.value)}
                 className={styles.input}
                 required
+                autoComplete="off"
               />
             </label>
 
-            <label className={styles.labelGroup}>
+            <label className={styles.labelGroup} htmlFor="mes-ano-fim">
               <span className={styles.labelText}>Fim (MM/AAAA)</span>
               <input
+                id="mes-ano-fim"
+                name="mesAnoFim"
                 type="text"
                 placeholder="MM/AAAA"
                 value={fim}
                 onChange={(e) => setFim(e.target.value)}
                 className={styles.input}
                 required
+                autoComplete="off"
               />
             </label>
 
-            <label className={styles.labelGroup}>
+            <label className={styles.labelGroup} htmlFor="pagina-busca">
               <span className={styles.labelText}>Página</span>
               <input
+                id="pagina-busca"
+                name="pagina"
                 type="number"
+                min="1"
                 value={pagina}
                 onChange={(e) => setPagina(Number(e.target.value))}
                 className={`${styles.input} ${styles.inputPage}`}
                 required
+                aria-describedby="pagina-ajuda"
               />
             </label>
 
-            <button type="submit" className={styles.button} disabled={carregando}>
+            <button type="submit" className={styles.button} disabled={carregando} aria-label="Buscar despesas">
               {carregando ? "Buscando..." : "Buscar"}
             </button>
           </form>
 
-          <div className={styles.resultsContainer}>
+          <div className={styles.resultsContainer} aria-live="polite" aria-atomic="true">
             {erroMensagem && (
               <div className={styles.errorBanner} role="alert">
                 {erroMensagem === MENSAGEM_SERVIDOR_INDISPONIVEL ? MENSAGEM_SERVIDOR_INDISPONIVEL : erroMensagem}
               </div>
             )}
 
-            <section className={styles.resultsGrid}>
+            <section className={styles.resultsGrid} aria-label="Resultados da busca">
               <div className={styles.leftPanel}>
                 <div className={styles.panelHeader}>
                   <h3>Despesas encontradas:</h3>
-                  <div className={styles.countBadge}>{dados.length} registros</div>
+                  <div className={styles.countBadge} aria-live="polite">{dados.length} registros</div>
                 </div>
                 <div className={styles.resultsList}>
                   {dados.length > 0 ? (
-                  <ul className={styles.list}>
-                    {dados.map((recurso, index) => (
-                      <li key={`${recurso.codigoPessoa}-${recurso.anoMes}-${index}`} className={styles.listItem}>
-                        <div className={styles.rowTop}>
-                          <div className={styles.itemTitle}>{recurso.nomePessoa}</div>
-                          <div className={styles.itemValue}>{formatCurrency(Number(recurso.valor))}</div>
-                        </div>
-                        <div className={styles.rowMeta}>{recurso.tipoPessoa} · {recurso.municipioPessoa}</div>
-                        <div className={styles.rowMetaSmall}>{recurso.nomeOrgao}</div>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  !carregando && !erroMensagem && <p className={styles.emptyText}>Nenhum dado consultado ainda.</p>
-                )}
+                    <ul className={styles.list}>
+                      {dados.map((recurso, index) => (
+                        <li key={`${recurso.codigoPessoa}-${recurso.anoMes}-${index}`} className={styles.listItem}>
+                          <div className={styles.rowTop}>
+                            <div className={styles.itemTitle}>{recurso.nomePessoa}</div>
+                            <div className={styles.itemValue}>{formatCurrency(Number(recurso.valor))}</div>
+                          </div>
+                          <div className={styles.rowMeta}>{recurso.tipoPessoa} · {recurso.municipioPessoa}</div>
+                          <div className={styles.rowMetaSmall}>{recurso.nomeOrgao}</div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    !carregando && !erroMensagem && <p className={styles.emptyText}>Nenhum dado consultado ainda.</p>
+                  )}
                 </div>
 
                 <div>
@@ -211,10 +226,9 @@ export default function MainContent({ data }: MainContentProps) {
                     </button>
                   )}
                 </div>
-
               </div>
 
-              <aside className={styles.rightPanel}>
+              <aside className={styles.rightPanel} aria-label="Resumo estatístico">
                 <div className={styles.sideBox}>
                   <h3>Despesas por tipo de beneficiário:</h3>
                   <div className={styles.statsList}>
@@ -225,7 +239,7 @@ export default function MainContent({ data }: MainContentProps) {
                         <div key={item.tipoPessoa} className={styles.statsItem}>
                           <div className={styles.statsLabel}>{item.tipoPessoa}</div>
                           <div className={styles.statsValue}>{formatCurrency(item.total)}</div>
-                          <div className={styles.progressBar}>
+                          <div className={styles.progressBar} aria-hidden="true">
                             <div
                               className={styles.progressFill}
                               style={{ width: `${Math.min((item.total / (topTipoPessoa[0]?.total || 1)) * 100, 100)}%` }}
@@ -252,6 +266,6 @@ export default function MainContent({ data }: MainContentProps) {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

@@ -26,6 +26,10 @@ Aplicação web responsiva em Next.js para consultar e visualizar dados de despe
 - src/lib/api: camada de integração com o serviço externo.
 - src/types: interfaces TypeScript usadas para tipar os dados.
 
+## Acessibilidade (A11Y)
+
+Este projeto foi desenvolvido seguindo as boas práticas de acessibilidade na Web (**A11Y**) para garantir uma navegação inclusiva, fluida e sem barreiras.
+
 ## Pré-requisitos
 
 - Node.js 18+

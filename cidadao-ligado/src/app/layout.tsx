@@ -22,11 +22,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <Header/>
-        <main>
+        <a href="#conteudo-principal" className="skipLink">
+          Pular para o conteúdo principal
+        </a>
+        <Header />
+        <main id="conteudo-principal">
           {children}
         </main>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

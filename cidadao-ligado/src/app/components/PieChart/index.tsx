@@ -19,9 +19,21 @@ export default function PieChart({ data, formatCurrency }: PieChartProps) {
   const colors = ["#38bdf8", "#22c55e", "#f97316", "#a855f7"];
   let startAngle = 0;
 
+  const chartSummary = data
+    .map((item) => `${item.tipoPessoa}: ${formatCurrency(item.total)}`)
+    .join("; ");
+
   return (
     <div className={styles.pieChartContainer}>
-      <svg viewBox="0 0 200 200" className={styles.pieChart} aria-hidden="true">
+      <svg
+        viewBox="0 0 200 200"
+        className={styles.pieChart}
+        role="img"
+        aria-labelledby="pie-chart-title pie-chart-desc"
+      >
+        <title id="pie-chart-title">Distribuição por tipo de beneficiário</title>
+        <desc id="pie-chart-desc">{chartSummary}</desc>
+
         {data.map((item, index) => {
           const sliceAngle = (item.total / total) * 360;
           const endAngle = startAngle + sliceAngle;
@@ -46,6 +58,8 @@ export default function PieChart({ data, formatCurrency }: PieChartProps) {
           );
         })}
       </svg>
+
+      <p className="srOnly">Resumo gráfico: {chartSummary}</p>
 
       <div className={styles.pieLegend}>
         {data.map((item, index) => (
