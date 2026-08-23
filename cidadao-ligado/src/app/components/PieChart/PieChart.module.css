@@ -1,0 +1,68 @@
+.pieChartContainer {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0.25rem 0;
+}
+
+.pieChart {
+  width: 140px;
+  height: 140px;
+  max-width: 220px;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .pieChart {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+.pieLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 140px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.25rem 0;
+  color: #cbd5e1;
+  font-size: 0.94rem;
+}
+
+.legendLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.legendBullet {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.legendLabel {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e6eef2;
+}
+
+.legendValue {
+  font-weight: 700;
+  color: #06b6d4;
+  margin-left: 0.5rem;
+}
+

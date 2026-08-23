@@ -1,0 +1,25 @@
+.header {
+    background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #0f172a;
+}
+
+.header__logo {
+    margin: 0;
+    color: #e0e0e0;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.header__logo a {
+    text-decoration: none;
+    margin: 0;
+    font-size: clamp(1rem, 2.5vw, 1.5rem);
+    color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .header__logo a {
+        font-size: 1.3rem;
+    }
+}
