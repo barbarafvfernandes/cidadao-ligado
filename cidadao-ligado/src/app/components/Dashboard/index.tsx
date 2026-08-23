@@ -219,8 +219,10 @@ export default function MainContent({ data }: MainContentProps) {
                           </div>
                           <div className={styles.rowMeta}>{recurso.tipoPessoa} · {recurso.municipioPessoa}</div>
                           <div className={styles.rowMetaSmall}>
-                            <span className={styles.label}>Vinculado ao órgão:</span>
+                            <span className={styles.label}>Repasse vinculado a:</span>
                             {recurso.nomeOrgao}
+                            <span className={styles.label}>Órgão Superior:</span>
+                            {recurso.nomeOrgaoSuperior}
                           </div>
                         </li>
                       ))}
